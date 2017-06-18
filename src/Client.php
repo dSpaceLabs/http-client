@@ -54,6 +54,10 @@ class Client implements ClientInterface
 
         $rawResponse = curl_exec($ch);
         curl_close($ch);
+
+        $response = $this->parse($rawResponse);
+
+        return $response;
     }
 
     public function parse($raw)
@@ -75,9 +79,11 @@ class Client implements ClientInterface
             $response = $response->withHeader($header[0], $header[1]);
             unset($lines[$i]);
         }
+
         $stream = new Stream();
         $stream->write(implode("\n", $lines));
         $response = $response->withBody($stream);
-        var_dump($response);
+
+        return $response;
     }
 }
