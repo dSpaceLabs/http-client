@@ -31,6 +31,16 @@ class Client implements ClientInterface
     /**
      * {@inheritDoc}
      */
+    public function sendWithRequest(RequestInterface $request)
+    {
+        $this->request = $request;
+
+        return $this->send();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
     public function send()
     {
         if (null === $this->request) {
@@ -82,6 +92,7 @@ class Client implements ClientInterface
 
         $stream = new Stream(fopen('php://temp', 'w+'));
         $stream->write(implode("\n", $lines));
+        $stream->rewind();
         $response = $response->withBody($stream);
 
         return $response;

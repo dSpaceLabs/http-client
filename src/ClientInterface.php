@@ -22,4 +22,10 @@ interface ClientInterface
      * @return \Psr\Http\Message\ResponseInterface
      */
     public function send();
+
+    /**
+     * @param \Psr\Http\Message\RequestInterface $request
+     * @return \Psr\Http\Message\ResponseInterface
+     */
+    public function sendWithRequest(RequestInterface $request);
 }

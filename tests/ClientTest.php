@@ -25,9 +25,11 @@ Connection: close
 Content-Type: text/html
 X-Pad: avoid browser bug
 
-<html><body><h1>It works!</h1></body></html>
+{"hello":"world"}
 RAW;
         $client = new Client();
         $response = $client->parse($raw);
+        $contents = $response->getBody()->getContents();
+        //var_dump(json_decode($contents, true));
     }
 }
