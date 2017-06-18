@@ -70,26 +70,35 @@ class Client implements ClientInterface
         return $response;
     }
 
+    /**
+     * Parses a Raw HTTP response and converts it into a response object
+     *
+     * @param string $raw
+     * @return \Psr\Http\Message\Response
+     */
     public function parse($raw)
     {
         $lines = explode("\n", $raw);
 
-        preg_match('/(.*)\/(\d\.\d) (\d\d\d) (.*)/', $lines[0], $statusLine);
+        // Status Line
+        preg_match('/HTTP\/(\d\.\d) (\d\d\d) (.*)/', $lines[0], $statusLine);
         $response = (new Response())
-            ->withProtocolVersion($statusLine[2])
-            ->withStatus($statusLine[3], $statusLine[4]);
+            ->withProtocolVersion($statusLine[1])
+            ->withStatus($statusLine[2], $statusLine[3]);
         unset($lines[0]);
 
+        // Headers
         foreach ($lines as $i => $line) {
             if ('' == trim($line)) {
                 unset($lines[$i]);
                 break;
             }
-            $header = explode(': ', $line);
+            $header   = explode(': ', $line);
             $response = $response->withHeader($header[0], $header[1]);
             unset($lines[$i]);
         }
 
+        // Body
         $stream = new Stream(fopen('php://temp', 'w+'));
         $stream->write(implode("\n", $lines));
         $stream->rewind();

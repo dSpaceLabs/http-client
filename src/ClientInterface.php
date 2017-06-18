@@ -11,6 +11,8 @@ use Psr\Http\Message\ResponseInterface;
 interface ClientInterface
 {
     /**
+     * Returns an instance with the provided Request object
+     *
      * @param \Psr\Http\Message\RequestInterface $request
      * @return static
      */
@@ -20,6 +22,7 @@ interface ClientInterface
      * Sends HTTP request to server and returns a response object
      *
      * @return \Psr\Http\Message\ResponseInterface
+     * @throws \Exception
      */
     public function send();
 
