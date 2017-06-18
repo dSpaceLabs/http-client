@@ -28,6 +28,6 @@ X-Pad: avoid browser bug
 <html><body><h1>It works!</h1></body></html>
 RAW;
         $client = new Client();
-        $client->parse($raw);
+        $response = $client->parse($raw);
     }
 }

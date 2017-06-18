@@ -80,7 +80,7 @@ class Client implements ClientInterface
             unset($lines[$i]);
         }
 
-        $stream = new Stream();
+        $stream = new Stream(fopen('php://temp', 'w+'));
         $stream->write(implode("\n", $lines));
         $response = $response->withBody($stream);
 
