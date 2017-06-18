@@ -4,6 +4,8 @@ namespace Dspacelabs\Component\Http\Client;
 
 use Psr\Http\Message\RequestInterface;
 use Psr\Http\Message\ResponseInterface;
+use Dspacelabs\Component\Http\Message\Response;
+use Dspacelabs\Component\Http\Message\Stream;
 
 /**
  * Simple HTTP Client
@@ -52,10 +54,30 @@ class Client implements ClientInterface
 
         $rawResponse = curl_exec($ch);
         curl_close($ch);
+    }
 
-        $lines = explode("\n", $rawResponse);
-        $status = null;
-        foreach ($lines as $line) {
+    public function parse($raw)
+    {
+        $lines = explode("\n", $raw);
+
+        preg_match('/(.*)\/(\d\.\d) (\d\d\d) (.*)/', $lines[0], $statusLine);
+        $response = (new Response())
+            ->withProtocolVersion($statusLine[2])
+            ->withStatus($statusLine[3], $statusLine[4]);
+        unset($lines[0]);
+
+        foreach ($lines as $i => $line) {
+            if ('' == trim($line)) {
+                unset($lines[$i]);
+                break;
+            }
+            $header = explode(': ', $line);
+            $response = $response->withHeader($header[0], $header[1]);
+            unset($lines[$i]);
         }
+        $stream = new Stream();
+        $stream->write(implode("\n", $lines));
+        $response = $response->withBody($stream);
+        var_dump($response);
     }
 }

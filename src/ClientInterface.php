@@ -8,7 +8,7 @@ use Psr\Http\Message\ResponseInterface;
 /**
  * Simple HTTP Client for making requests
  */
-interface Client
+interface ClientInterface
 {
     /**
      * @param \Psr\Http\Message\RequestInterface $request
