@@ -11,10 +11,15 @@ use Psr\Http\Message\ResponseInterface;
 interface Client
 {
     /**
+     * @param \Psr\Http\Message\RequestInterface $request
+     * @return static
+     */
+    public function withRequest(RequestInterface $request);
+
+    /**
      * Sends HTTP request to server and returns a response object
      *
-     * @param \Psr\Http\Message\RequestInterface $request
      * @return \Psr\Http\Message\ResponseInterface
      */
-    public function send(RequestInterface $request);
+    public function send();
 }
