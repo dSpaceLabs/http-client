@@ -68,7 +68,13 @@ class Client implements ClientInterface
         curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
 
         $rawResponse = curl_exec($ch);
+        $curlError = curl_error($ch);
+        $curlErrno = curl_errno($ch);
         curl_close($ch);
+
+        if (false === $rawResponse) {
+            throw new \RuntimeException('Invalid Curl Request: ('.$curlErrono.') '.$curlError);
+        }
 
         $this->response = $this->parse($rawResponse);
 
