@@ -18,6 +18,11 @@ class Client implements ClientInterface
     protected $request;
 
     /**
+     * @var \Psr\Http\Message\ResponseInterface;
+     */
+    protected $response;
+
+    /**
      * {@inheritDoc}
      */
     public function withRequest(RequestInterface $request)
@@ -65,9 +70,9 @@ class Client implements ClientInterface
         $rawResponse = curl_exec($ch);
         curl_close($ch);
 
-        $response = $this->parse($rawResponse);
+        $this->response = $this->parse($rawResponse);
 
-        return $response;
+        return $this->response;
     }
 
     /**
