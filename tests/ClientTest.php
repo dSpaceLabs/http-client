@@ -4,6 +4,9 @@ namespace Dspacelabs\Component\Http\Client\Tests;
 
 use PHPUnit\Framework\TestCase;
 use Dspacelabs\Component\Http\Client\Client;
+use Dspacelabs\Component\Http\Message\Request;
+use Dspacelabs\Component\Http\Message\Uri;
+use Dspacelabs\Component\Http\Message\Response;
 
 class ClientTest extends TestCase
 {
