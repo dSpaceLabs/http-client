@@ -73,7 +73,7 @@ class Client implements ClientInterface
         curl_close($ch);
 
         if (false === $rawResponse) {
-            throw new \RuntimeException('Invalid Curl Request: ('.$curlErrono.') '.$curlError);
+            throw new \RuntimeException('Invalid Curl Request: ('.$curlErrno.') '.$curlError);
         }
 
         $this->response = $this->parse($rawResponse);
