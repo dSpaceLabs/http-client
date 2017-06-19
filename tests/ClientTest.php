@@ -7,11 +7,7 @@ use Dspacelabs\Component\Http\Client\Client;
 
 class ClientTest extends TestCase
 {
-    public function testGeneric()
-    {
-    }
-
-    public function testRawResponseParse()
+    public function testRawResponseParser()
     {
         $raw = <<<RAW
 HTTP/1.1 200 OK
@@ -30,6 +26,6 @@ RAW;
         $client = new Client();
         $response = $client->parse($raw);
         $contents = $response->getBody()->getContents();
-        //var_dump(json_decode($contents, true));
+        $this->assertSame('{"hello":"world"}', $contents);
     }
 }
