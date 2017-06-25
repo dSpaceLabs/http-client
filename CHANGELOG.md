@@ -1,7 +1,11 @@
 # Change Log
 
 ## [Unreleased]
+* Travis CI Builds
+* Created Phing build script
 
+### Added
+* HttpClient Class
 
 ## [0.1.0]
 * Initial Release
