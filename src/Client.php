@@ -112,7 +112,7 @@ class Client implements ClientInterface
         }
 
         // Body
-        $stream = new Stream(fopen('php://temp', 'w+'));
+        $stream = new Stream(fopen('php://memory', 'rw+'));
         $stream->write(implode("\n", $lines));
         $stream->rewind();
         $response = $response->withBody($stream);
