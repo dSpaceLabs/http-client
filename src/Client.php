@@ -56,6 +56,7 @@ class Client implements ClientInterface
         curl_setopt($ch, CURLOPT_URL, $this->request->getUri());
         curl_setopt($ch, CURLOPT_HEADER, true); // Include Headers with output
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true); // curl_exec returns output of request
+        curl_setopt($ch, CURLOPT_FOLLOWLOCATION, true); // Follow Redirects
 
         if ('post' == strtolower($this->request->getMethod())) {
             curl_setopt($ch, CURLOPT_POST, true);
