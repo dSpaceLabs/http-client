@@ -71,6 +71,7 @@ class Client implements ClientInterface
             $size = 0;
         }
         $headers[] = 'Content-Length: '.$size;
+        $headers[] = 'Expect:';
         curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
 
         $rawResponse = curl_exec($ch);
