@@ -66,6 +66,7 @@ class Client implements ClientInterface
         foreach ($this->request->getHeaders() as $name => $values) {
             $headers[] = $name.': '.implode(', ', $values);
         }
+        $headers[] = 'Content-Length: '.strlen($this->request->getBody()->getSize());
         curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
 
         $rawResponse = curl_exec($ch);
